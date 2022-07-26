@@ -25,7 +25,7 @@ function onPlayClick () {
     }
 }
 
-function resetProperties (field, counter, isGame, messageHeading, cells) {
+function resetProperties () {
     field = ["", "", "", "", "", "", "", "", ""];
     counter = 0; 
     isGame = true;
