@@ -3,7 +3,7 @@ var counter = 0;
 var isGame = false;
 var isPlayAvailible = true;
 var isRefreshAvailible = false;
-var isVsComputer = false;
+var isVsComputer = true;
 const X = "X";
 const O = "O";
 const cellIdName = "cell";
@@ -25,23 +25,27 @@ function onPlayClick () {
     }
 }
 
+function resetProperties (field, counter, isGame, messageHeading, cells) {
+    field = ["", "", "", "", "", "", "", "", ""];
+    counter = 0; 
+    isGame = true;
+    messageHeading.innerHTML = "";
+    setCellsEmpty(cells);
+}
+
 function onRefreshClick () {
     if (isRefreshAvailible) {
-        field = ["", "", "", "", "", "", "", "", ""];
-        counter = 0; 
-        isGame = true;
-        messageHeading.innerHTML = "";
-        setCellsEmpty(cells);
+        resetProperties (field, counter, isGame, messageHeading, cells);
     }
 }
 
 function setCellsEmpty (cells) {
     for (let index = 0; index < cells.length; index++) {
-        cells[index].innerHTML = ""
+        cells[index].innerHTML = "";
     }
 }
 
-function xOrO( counter) {
+function xOrO(counter) {
     if (counter % 2 === 0) {
         return X
     } 
@@ -81,16 +85,14 @@ function isDraw (field) {
 
 function onCellClick (event) {
     if (isGame) {
-        const id = event.target.id.substring(4,5) - 1;
+        const id = event.target.id.substring(4, 5) - 1;
         const whichGoes = xOrO(counter);
-        if (field[id] === "" && (field[id] !== X && field[id] !== O)) {  // if cell isn`t taken
+        if (field[id] === "" && (field[id] !== X && field[id] !== O)) {
             field[id] = whichGoes;
             counter+=1;
             document.getElementById(`${cellIdName}${id+1}`).innerHTML = whichGoes;
-        } else {
-            // cell is taken
         }
-        if ( counter >= 4) {
+        if (counter >= 4) {
             if (isWin(X)) {
                 console.log("x wins");
                 messageHeading.innerHTML = "X wins";
