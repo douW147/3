@@ -51,6 +51,10 @@
     color: #bbb;
 }
 
+.controll-buttons__controll-button_sm {
+    font-size: 2rem;
+}
+
 .message {
     text-align: center;
     font-size: 4rem;
