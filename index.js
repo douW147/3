@@ -33,7 +33,7 @@ function onRefreshClick () {
     }
 }
 
-function on1Vs1Click() {
+function on1Vs1Click () {
     vs1Button.classList.remove(disableButtonClassName);
     vsComputerButton.classList.add(disableButtonClassName);
     isVsComputer = false;
@@ -67,7 +67,7 @@ function setCellsEmpty (cells) {
     }
 }
 
-function xOrO(counter) {
+function xOrO (counter) {
     if (counter % 2 === 0) {
         return X
     } 
@@ -123,7 +123,7 @@ function isGameEnds () {
     }
 }
 
-function generateComputerId(){
+function generateComputerId (){
     while(true) {
         const id = Math.floor(Math.random() * 8);
         if (field[id] === "" && (field[id] !== X && field[id] !== O)) {
@@ -132,7 +132,7 @@ function generateComputerId(){
     }   
 }
 
-function computerGoes() {
+function computerGoes () {
     console.log("lox")
     if (isVsComputer && counter % 2 !== 0) {
         const id = generateComputerId();
@@ -141,7 +141,7 @@ function computerGoes() {
     }
 }
 
-function makeStep(id) {
+function makeStep (id) {
     const whichGoes = xOrO(counter);
     if (field[id] === "" && (field[id] !== X && field[id] !== O)) {
         field[id] = whichGoes;
