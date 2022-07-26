@@ -5,25 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Tic-tac-toe</title>
 </head>
 <body>
+    <div class="controll-buttons">
+        <button onClick="onPlayClick()" class="controll-buttons__controll-button">
+            <i class="fa-solid fa-play"></i>
+        </button>
+        <button onClick="onRefreshClick()" class="controll-buttons__controll-button controll-buttons__controll-button_disabled">
+            <i class="fa-solid fa-arrow-rotate-right"></i>
+        </button>
+    </div>
+    <h1 class="message"></h1>
     <div class="container">
         <div class="field">
             <div class="row">
-                <div class="cell" id="cell1">1</div>
-                <div class="cell" id="cell2">2</div>
-                <div class="cell" id="cell3">3</div>
+                <div onclick="onCellClick(event)" class="cell" id="cell1"></div>
+                <div onclick="onCellClick(event)" class="cell" id="cell2"></div>
+                <div onclick="onCellClick(event)" class="cell" id="cell3"></div>
             </div>
             <div class="row">
-                <div class="cell" id="cell4">4</div>
-                <div class="cell" id="cell5">5</div>
-                <div class="cell" id="cell6">6</div>
+                <div onclick="onCellClick(event)" class="cell" id="cell4"></div>
+                <div onclick="onCellClick(event)" class="cell" id="cell5"></div>
+                <div onclick="onCellClick(event)" class="cell" id="cell6"></div>
             </div>
             <div class="row">
-                <div class="cell" id="cell7">7</div>
-                <div class="cell" id="cell8">8</div>
-                <div class="cell" id="cell9">9</div>
+                <div onclick="onCellClick(event)" class="cell" id="cell7"></div>
+                <div onclick="onCellClick(event)" class="cell" id="cell8"></div>
+                <div onclick="onCellClick(event)" class="cell" id="cell9"></div>
             </div>
         </div>
     </div>

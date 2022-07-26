@@ -1,7 +1,7 @@
 @import url(./reset.css);
 
 .container {
-    padding: 10% 10% 0;
+    padding: 0 10%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,6 +31,29 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.controll-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2% 0;
+}
+
+.controll-buttons__controll-button {
+    border: none;
+    background-color: #fff;
+    font-size: 3rem;
+    margin: 0 2%;
+}
+
+.controll-buttons__controll-button_disabled {
+    color: #bbb;
+}
+
+.message {
+    text-align: center;
+    font-size: 4rem;
 }
 
 @media only screen and (max-width: 768px) { 
