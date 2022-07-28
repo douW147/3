@@ -140,7 +140,7 @@ function isDraw(field) {
             fieldsCounter += 1;
         }
     });
-    return fieldsCounter === 9;
+    return fieldsCounter === 10;
 }
 
 function isGameEnds() {
@@ -162,7 +162,7 @@ function isGameEnds() {
 
 function generateComputerId() {
     while (true) {
-        const id = Math.floor(Math.random() * 8);
+        const id = Math.floor(Math.random() * 9);
         if (field[id] === "" && field[id] !== X && field[id] !== O) {
             return id;
         }
@@ -181,16 +181,19 @@ function makeStep(id) {
     if (field[id] === "" && field[id] !== X && field[id] !== O) {
         field[id] = whichGoes;
         counter += 1;
-        document.getElementById(`${CELLIDNAME}${id + 1}`).innerHTML = whichGoes;
+        const currentCell = document.getElementById(`${CELLIDNAME}${id}`);
+        currentCell.innerHTML = whichGoes;
     }
 }
 
 function onCellClick(event) {
     if (isGame) {
-        const id = event.target.id.substring(4, 5) - 1;
+        const id = event.target.id.slice(-1);
         makeStep(id);
         isGameEnds();
-        computerGoes(); 
+        if (counter <= 8) {
+            computerGoes(); 
+        }
         isGameEnds();
     }
 }
