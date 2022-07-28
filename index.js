@@ -54,7 +54,18 @@ function on1vsComputerClick() {
     playerVsComputerButton.classList.remove(disableButtonClassName);
     playerVsPlayerButton.classList.add(disableButtonClassName);
     isGameVsComputer = true;
+    
     resetProperties();
+}
+
+function onCellClick(event) {
+    if (isGameStarted) {
+        const clickedCellId = event.target.id.slice(-1);
+        makeStep(clickedCellId);
+        isGameEnds();
+        computerGoes(); 
+        isGameEnds();
+    }
 }
 
 function resetProperties() {
@@ -177,22 +188,19 @@ function computerGoes() {
     }
 }
 
+function increaseStepsCounter() {
+    stepsCounter++;
+}
+
 function makeStep(id) {
     const whichGoes = chooseSymbolWhichGoes(stepsCounter);
     if (fieldOfCells[id] === "" && fieldOfCells[id] !== symbolOfX && fieldOfCells[id] !== symbolOfO) {
+
         fieldOfCells[id] = whichGoes;
-        stepsCounter += 1;
+
+        increaseStepsCounter();
+
         const currentCell = document.getElementById(`${cellIdName}${id}`);
         currentCell.innerHTML = whichGoes;
-    }
-}
-
-function onCellClick(event) {
-    if (isGameStarted) {
-        const clickedCellId = event.target.id.slice(-1);
-        makeStep(clickedCellId);
-        isGameEnds();
-        computerGoes(); 
-        isGameEnds();
     }
 }
