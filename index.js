@@ -8,24 +8,24 @@ var isRefreshAvailible = false;
 var isVsComputer = false;
 const X = "X";
 const O = "O";
-const cellIdName = "cell";
-const cellClassName = "cell";
-const disableButtonClassName = "controll-buttons__controll-button_disabled";
-const messageHeadingClassName = "message";
-const messageHeading = document.querySelector(
-    `body > h1.${messageHeadingClassName}`
+const CELLIDNAME = "cell";
+const CELLCLASSNAME = "cell";
+const DISABLEBUTTONCLASSNAME = "controll-buttons__controll-button_disabled";
+const MESSAGEHEADINGCLASSNAME = "message";
+const MESSAGEHEADING = document.querySelector(
+    `body > h1.${MESSAGEHEADINGCLASSNAME}`
 );
-var cells = document.getElementsByClassName(cellClassName);
-const playButton = document.querySelector(
+const CELLS = document.getElementsByClassName(CELLCLASSNAME);
+const PLAYBUTTON = document.querySelector(
     "body > div.controll-buttons > button:nth-child(1)"
 );
-const refreshButton = document.querySelector(
+const REFRESHBUTTON = document.querySelector(
     "body > div.controll-buttons > button:nth-child(2)"
 );
-const vs1Button = document.querySelector(
+const VS1BUTTON = document.querySelector(
     "body > div.controll-buttons > button:nth-child(3)"
 );
-const vsComputerButton = document.querySelector(
+const VSCOMPUTERBUTTON = document.querySelector(
     "body > div.controll-buttons > button:nth-child(4)"
 );
 
@@ -34,42 +34,41 @@ function onPlayClick() {
         isGame = true;
         isPlayAvailible = false;
         isRefreshAvailible = true;
-        playButton.classList.add(disableButtonClassName);
-        refreshButton.classList.remove(disableButtonClassName);
+        PLAYBUTTON.classList.add(DISABLEBUTTONCLASSNAME);
+        REFRESHBUTTON.classList.remove(DISABLEBUTTONCLASSNAME);
     }
 }
 
 function onRefreshClick() {
     if (isRefreshAvailible) {
-        resetProperties(field, counter, isGame, messageHeading, cells);
+        resetProperties(field, counter, isGame, MESSAGEHEADING, CELLS);
     }
 }
 
 function on1Vs1Click() {
-    vs1Button.classList.remove(disableButtonClassName);
-    vsComputerButton.classList.add(disableButtonClassName);
+    VS1BUTTON.classList.remove(DISABLEBUTTONCLASSNAME);
+    VSCOMPUTERBUTTON.classList.add(DISABLEBUTTONCLASSNAME);
     isVsComputer = false;
     resetProperties();
 }
 
 function on1vsComputerClick() {
-    vsComputerButton.classList.remove(disableButtonClassName);
-    vs1Button.classList.add(disableButtonClassName);
+    VSCOMPUTERBUTTON.classList.remove(DISABLEBUTTONCLASSNAME);
+    VS1BUTTON.classList.add(DISABLEBUTTONCLASSNAME);
     isVsComputer = true;
     resetProperties();
-    console.log(isVsComputer);
 }
 
 function resetProperties() {
     field = ["", "", "", "", "", "", "", "", ""];
     counter = 0;
     isGame = true;
-    messageHeading.innerHTML = "";
+    MESSAGEHEADING.innerHTML = "";
     isPlayAvailible = false;
     isRefreshAvailible = true;
-    playButton.classList.add(disableButtonClassName);
-    refreshButton.classList.remove(disableButtonClassName);
-    setCellsEmpty(cells);
+    PLAYBUTTON.classList.add(DISABLEBUTTONCLASSNAME);
+    REFRESHBUTTON.classList.remove(DISABLEBUTTONCLASSNAME);
+    setCellsEmpty(CELLS);
 }
 
 function setCellsEmpty(cells) {
@@ -147,16 +146,15 @@ function isDraw(field) {
 function isGameEnds() {
     if (counter >= 4) {
         if (isWin(X)) {
-            console.log("x wins");
-            messageHeading.innerHTML = "X wins";
+            MESSAGEHEADING.innerHTML = "X wins";
             isGame = false;
         }
         if (isWin(O)) {
-            messageHeading.innerHTML = "O wins";
+            MESSAGEHEADING.innerHTML = "O wins";
             isGame = false;
         }
         if (isDraw(field)) {
-            messageHeading.innerHTML = "Draw";
+            MESSAGEHEADING.innerHTML = "Draw";
             isGame = false;
         }
     }
@@ -174,7 +172,6 @@ function generateComputerId() {
 function computerGoes() {
     if (isVsComputer && counter % 2 !== 0) {
         const id = generateComputerId();
-        console.log(id);
         makeStep(id);
     }
 }
@@ -184,7 +181,7 @@ function makeStep(id) {
     if (field[id] === "" && field[id] !== X && field[id] !== O) {
         field[id] = whichGoes;
         counter += 1;
-        document.getElementById(`${cellIdName}${id + 1}`).innerHTML = whichGoes;
+        document.getElementById(`${CELLIDNAME}${id + 1}`).innerHTML = whichGoes;
     }
 }
 
@@ -193,7 +190,7 @@ function onCellClick(event) {
         const id = event.target.id.substring(4, 5) - 1;
         makeStep(id);
         isGameEnds();
-        computerGoes(); // executes only if isVsComputer
+        computerGoes(); 
         isGameEnds();
     }
 }
