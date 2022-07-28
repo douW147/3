@@ -1,5 +1,10 @@
 @import url(./reset.css);
 
+:root {
+    --border: #000;
+    --button-disabled: #bbb;
+}
+
 .container {
     padding: 0 10%;
     display: flex;
@@ -7,24 +12,26 @@
     align-items: center;
 }
 
-.row {
+.field__row {
     display: flex;
-    border-bottom: 3px solid #000;
+    border-bottom: 7px solid var(--border-color);
+    border-radius: 12px;
 }
 
-.row:last-child {
+.field__row:last-child {
     border-bottom:none;
 }
 
-.row > .cell{
-    border-right: 3px solid #000;
+.field__row > .field__cell{
+    border-right: 7px solid var(--border-color);
+    border-radius: 12px;
 }
 
-.row > .cell:last-child{
+.field__row > .field__cell:last-child{
     border-right: none;
 }
 
-.cell {
+.field__cell {
     font-size: 13rem;
     width: 180px;
     height: 180px;
@@ -48,7 +55,7 @@
 }
 
 .controll-buttons__controll-button_disabled {
-    color: #bbb;
+    color: var(--button-disabled);
 }
 
 .controll-buttons__controll-button_sm {
@@ -62,7 +69,7 @@
 
 @media only screen and (max-width: 768px) { 
 
-    .cell {
+    .field__cell {
         width: 150px;
         height: 150px;
         font-size: 9rem;
@@ -72,7 +79,7 @@
 
 @media only screen and (max-width: 576px) { 
 
-    .cell {
+    .field__cell {
         width: 100px;
         height: 100px;
         font-size: 5rem;
