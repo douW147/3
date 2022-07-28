@@ -3,6 +3,7 @@
 :root {
     --border: #000;
     --button-disabled: #bbb;
+    --button-bg: #fff;
 }
 
 .container {
@@ -14,7 +15,7 @@
 
 .field__row {
     display: flex;
-    border-bottom: 7px solid var(--border-color);
+    border-bottom: 7px solid var(--border);
     border-radius: 12px;
 }
 
@@ -23,7 +24,7 @@
 }
 
 .field__row > .field__cell{
-    border-right: 7px solid var(--border-color);
+    border-right: 7px solid var(--border);
     border-radius: 12px;
 }
 
@@ -49,7 +50,7 @@
 
 .controll-buttons__controll-button {
     border: none;
-    background-color: #fff;
+    background-color: var(--button-bg);
     font-size: 3rem;
     margin: 0 2%;
 }
