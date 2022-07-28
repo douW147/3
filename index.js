@@ -172,7 +172,6 @@ function generateComputerId() {
 }
 
 function computerGoes() {
-    console.log("lox");
     if (isVsComputer && counter % 2 !== 0) {
         const id = generateComputerId();
         console.log(id);
