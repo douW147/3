@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="symbolOfX-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -10,20 +10,20 @@
 </head>
 <body>
     <div class="controll-buttons">
-        <button onClick="onPlayClick()" class="controll-buttons__controll-button">
+        <button onClick="onPlayClick()" id="playButton" class="controll-buttons__controll-button">
             <i class="fa-solid fa-play"></i>
         </button>
-        <button onClick="onRefreshClick()" class="controll-buttons__controll-button controll-buttons__controll-button_disabled">
+        <button onClick="onRefreshClick()" id="refreshButton" class="controll-buttons__controll-button controll-buttons__controll-button_disabled">
             <i class="fa-solid fa-arrow-rotate-right"></i>
         </button>
-        <button onClick="on1Vs1Click()" class="controll-buttons__controll-button controll-buttons__controll-button_sm">
+        <button onClick="on1Vs1Click()" id="playerVsPlayerButton" class="controll-buttons__controll-button controll-buttons__controll-button_sm">
             1 vs 1
         </button>
-        <button onClick="on1vsComputerClick()" class="controll-buttons__controll-button controll-buttons__controll-button_sm controll-buttons__controll-button_disabled">
+        <button onClick="on1vsComputerClick()" id="playerVsComputerButton" class="controll-buttons__controll-button controll-buttons__controll-button_sm controll-buttons__controll-button_disabled">
             1 vs computer
         </button>
     </div>
-    <h1 class="message"></h1>
+    <h1 class="message" id="messageHeading"></h1>
     <div class="container">
         <div class="field">
             <div class="row">
