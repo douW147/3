@@ -3,96 +3,107 @@
 let fieldOfCells = ["", "", "", "", "", "", "", "", ""];
 let stepsCounter = 0;
 let isGameStarted = false;
-let isPlayButtonAvailible = true;
+let isGameInitialized = false;
 let isRefreshButtonAvailible = false;
 let isGameVsComputer = false;
-const symbolOfX = "X";
-const symbolOfO = "O";
+const firtsStepSymbol = "X";
+const SecondStepSymbol = "O";
 const cellIdName = "cell";
-const cellClassName = "field__cell";
 const disableButtonClassName = "controll-buttons__controll-button_disabled";
 const messageHeadingClassName = "message";
-const messageHeadingId = "messageHeading";
-const playButtonId = "playButton";
-const refreshButtonId = "refreshButton";
-const playerVsPlayerButtonId = "playerVsPlayerButton";
-const playerVsComputerButtonId = "playerVsComputerButton"; 
-const messageHeading = document.getElementById(messageHeadingId);
-const allCells = document.getElementsByClassName(cellClassName);
-const playButton = document.getElementById(playButtonId);
-const refreshButton = document.getElementById(refreshButtonId);
-const playerVsPlayerButton = document.getElementById(playerVsPlayerButtonId);
-const playerVsComputerButton = document.getElementById(playerVsComputerButtonId);
+const messageHeading = document.getElementById("messageHeading");
+const allCells = document.getElementsByClassName("field__cell");
+const gameInitializationButton = document.getElementById("gameInitializationButton");
+const refreshButton = document.getElementById("refreshButton");
+const playerVsPlayerButton = document.getElementById("playerVsPlayerButton");
+const playerVsComputerButton = document.getElementById("playerVsComputerButton");
 
-function onPlayClick() {
-    if (!isGameStarted && isPlayButtonAvailible) {
+function onGameInitializationButtonClick() {
+    if (!isGameStarted && !isGameInitialized) {
         isGameStarted = true;
-        isPlayButtonAvailible = false;
+        isGameInitialized = true;
         isRefreshButtonAvailible = true;
         
-        playButton.classList.add(disableButtonClassName);
+        gameInitializationButton.classList.add(disableButtonClassName);
         refreshButton.classList.remove(disableButtonClassName);
     }
 }
 
 function onRefreshClick() {
     if (isRefreshButtonAvailible) {
-        resetProperties();
+        refreshGame();
     }
 }
 
 function on1Vs1Click() {
+    if (!isGameInitialized || isGameVsComputer === false) {
+        return
+    }
     isGameVsComputer = false;
 
     playerVsPlayerButton.classList.remove(disableButtonClassName);
     playerVsComputerButton.classList.add(disableButtonClassName);
 
-    resetProperties();
+    refreshGame();
 }
 
 function on1vsComputerClick() {
+    if (!isGameInitialized || isGameVsComputer === true) {
+        return
+    }
     playerVsComputerButton.classList.remove(disableButtonClassName);
     playerVsPlayerButton.classList.add(disableButtonClassName);
     isGameVsComputer = true;
     
-    resetProperties();
+    refreshGame();
 }
 
 function onCellClick(event) {
-    if (isGameStarted) {
-        const clickedCellId = event.target.id.slice(-1);
-        makeStep(clickedCellId);
-        isGameEnds();
-        computerGoes(); 
-        isGameEnds();
+    if (!isGameStarted) {
+        return
     }
+
+    const clickedCellId = event.target.id.slice(-1);
+
+    if (!isPlayerCanSteps(clickedCellId)) {
+        return
+    }
+    
+    makeStep(clickedCellId);
+    setGameEndMessage();
+
+    if (!isComputerCanSteps()) {
+        return
+    }
+    makeComputerStep(); 
+    setGameEndMessage();
 }
 
-function resetProperties() {
+function refreshGame() {
     fieldOfCells = ["", "", "", "", "", "", "", "", ""];
     stepsCounter = 0;
     isGameStarted = true;
     messageHeading.innerHTML = "";
-    isPlayButtonAvailible = false;
+    isGameInitialized = true;
     isRefreshButtonAvailible = true;
 
-    playButton.classList.add(disableButtonClassName);
+    gameInitializationButton.classList.add(disableButtonClassName);
     refreshButton.classList.remove(disableButtonClassName);
     
     setCellsEmpty(allCells);
 }
 
-function setCellsEmpty(cells) {
-    for (let cellId = 0; cellId < cells.length; cellId++) {
-        cells[cellId].innerHTML = "";
+function setCellsEmpty(allCells) {
+    for (let cellId = 0; cellId < allCells.length; cellId++) {
+        allCells[cellId].innerHTML = "";
     }
 }
 
-function chooseSymbolWhichGoes(stepsCounter) {
+function choseSymbolWhichSteps(stepsCounter) {
     if (stepsCounter % 2 === 0) {
-        return symbolOfX;
+        return firtsStepSymbol;
     }
-    return symbolOfO;
+    return SecondStepSymbol;
 }
 
 function isWin(symbol) {
@@ -147,18 +158,18 @@ function isWin(symbol) {
 }
 
 function isDraw(fieldOfCells) {
-    const isAllCellsTaken = fieldOfCells.every(cell => cell === symbolOfX || cell === symbolOfO);
+    const isAllCellsTaken = fieldOfCells.every(cell => cell === firtsStepSymbol || cell === SecondStepSymbol);
     return isAllCellsTaken;
 }
 
-function isGameEnds() {
+function setGameEndMessage() {
     if (stepsCounter >= 4) {
-        if (isWin(symbolOfX)) {
-            messageHeading.innerHTML = `${symbolOfX.toUpperCase()} wins`;
+        if (isWin(firtsStepSymbol)) {
+            messageHeading.innerHTML = `${firtsStepSymbol.toUpperCase()} wins`;
             isGameStarted = false;
         }
-        if (isWin(symbolOfO)) {
-            messageHeading.innerHTML = `${symbolOfO.toUpperCase()} wins`;
+        if (isWin(SecondStepSymbol)) {
+            messageHeading.innerHTML = `${SecondStepSymbol.toUpperCase()} wins`;
             isGameStarted = false;
         }
         if (isDraw(fieldOfCells)) {
@@ -170,21 +181,10 @@ function isGameEnds() {
 
 function generateCellIdForComputerStep() {
     while (true) {
-        const randomId = Math.floor(Math.random() * 9);
-        if (fieldOfCells[randomId] === "" 
-            && fieldOfCells[randomId] !== symbolOfX 
-            && fieldOfCells[randomId] !== symbolOfO) {
-            return randomId;
+        const randomCellId = Math.floor(Math.random() * 9);
+        if (isPlayerCanSteps(randomCellId)) {
+            return randomCellId;
         }
-    }
-}
-
-function computerGoes() {
-    if (isGameVsComputer 
-        && stepsCounter % 2 !== 0 
-        && stepsCounter <= 8) {
-        const id = generateCellIdForComputerStep();
-        makeStep(id);
     }
 }
 
@@ -192,15 +192,28 @@ function increaseStepsCounter() {
     stepsCounter++;
 }
 
-function makeStep(id) {
-    const whichGoes = chooseSymbolWhichGoes(stepsCounter);
-    if (fieldOfCells[id] === "" && fieldOfCells[id] !== symbolOfX && fieldOfCells[id] !== symbolOfO) {
+function makeStep(cellId) {
+    const curentStepSymbol = choseSymbolWhichSteps(stepsCounter);
+    fieldOfCells[cellId] = curentStepSymbol;
 
-        fieldOfCells[id] = whichGoes;
+    increaseStepsCounter();
 
-        increaseStepsCounter();
+    const currentCell = document.getElementById(`${cellIdName}${cellId}`);
+    currentCell.innerHTML = curentStepSymbol;
+}
 
-        const currentCell = document.getElementById(`${cellIdName}${id}`);
-        currentCell.innerHTML = whichGoes;
-    }
+function makeComputerStep() {
+        const randomCellId = generateCellIdForComputerStep();
+        makeStep(randomCellId);
+}
+
+function isPlayerCanSteps(cellId) {
+    return fieldOfCells[cellId] === "";
+}
+
+function isComputerCanSteps() {
+    return (isGameVsComputer 
+        && stepsCounter % 2 !== 0 
+        && stepsCounter <= 8
+    );
 }

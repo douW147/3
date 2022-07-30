@@ -86,4 +86,13 @@
         font-size: 5rem;
     }
 
+    .controll-buttons {
+        flex-wrap: wrap;
+    }
+
+    .controll-buttons__controll-button {
+        width: 50%;
+        margin: 0;
+    }
+
 }
